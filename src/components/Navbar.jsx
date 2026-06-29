@@ -51,8 +51,9 @@ function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
        {cartCount > 0 && (
        <span className="action-badge">{cartCount}</span>
       )}
-         </Link>
+      </Link>
         </div>
+
         {}
         <button
           className="hamburger"
@@ -61,6 +62,7 @@ function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
           ☰
         </button>
       </div>
+
       {}
       {menuOpen && (
         <div className="mobile-menu">

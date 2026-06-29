@@ -194,7 +194,6 @@ onWishlist={handleWishlist}
 }
 </div>
 </section>
-
 <Footer />
 </div>
 }
