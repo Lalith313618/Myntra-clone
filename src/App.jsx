@@ -113,13 +113,12 @@ const categories = ["All", "Men", "Women", "Footwear", "Accessories"];
 function App() {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [wishlistCount, setWishlistCount] = useState(0);
-
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const { cart, addToCart } = useContext(CartContext);
 
-  
+
   const filteredProducts = products.filter((p) => {
     const matchCategory = activeCategory === "All" || p.category === activeCategory;
     const matchSearch =
@@ -145,123 +144,63 @@ addToCart(product);
 return (
 
 <BrowserRouter>
-
 <Routes>
-
-
 <Route 
-path="/bag"
-element={
-<Bag 
-cartItems={cartItems}
-/>
+
+path="/bag"element={<Bag cartItems={cartItems}/>
 }
 />
-
 
 <Route 
 path="/"
 element={
 
 <div className="app">
-
-
 <Navbar
 
 cartCount={cart.length}
-
 wishlistCount={wishlistCount}
-
 searchQuery={searchQuery}
-
 setSearchQuery={setSearchQuery}
-
 />
 
-
-
 <Hero />
-
-
-
 <Categories
 
 categories={categories}
-
 activeCategory={activeCategory}
-
 setActiveCategory={setActiveCategory}
-
 />
-
-
 
 <section className="products-section">
 
-
 <h2 className="section-title">
-
-{activeCategory === "All" 
-? "All Products" 
-: activeCategory}
-
-
-</h2>
-
-
+  {activeCategory === "All" ? "All Products": activeCategory}</h2>
 
 <div className="products-grid">
 
-
 {
-
 filteredProducts.map((product)=>(
-
-
 <ProductCard
 
 key={product.id}
-
 product={product}
-
 isInCart={cart.some(item => item.id === product.id)}
 isWishlisted={wishlistItems.includes(product.id)}
-
 onAddToCart={handleAddToCart}
-
 onWishlist={handleWishlist}
-
 />
-
-
 ))
-
-
 }
-
-
 </div>
-
-
 </section>
 
-
-
 <Footer />
-
-
 </div>
-
-
 }
-
 />
-
-
 </Routes>
-
 </BrowserRouter>
-
 );
 }
 

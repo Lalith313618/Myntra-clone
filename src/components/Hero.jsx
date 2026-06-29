@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Hero.css";
 
-
 const banners = [
   {
     id: 1,
@@ -28,7 +27,6 @@ const banners = [
     emoji: "👟",
   },
 ];
-
 function Hero() {
   const [current, setCurrent] = useState(0);
 
@@ -38,7 +36,6 @@ function Hero() {
     }, 3000);
     return () => clearInterval(timer);
   }, []);
-
   const goTo = (index) => setCurrent(index);
 
   return (
@@ -56,7 +53,6 @@ function Hero() {
           <button className="hero-btn">SHOP NOW</button>
         </div>
       </div>
-
       {}
       <div className="hero-dots">
         {banners.map((_, index) => (

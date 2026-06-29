@@ -5,16 +5,13 @@ import { Link } from "react-router-dom";
 
 function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
   const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <header className="navbar">
       <div className="navbar-inner">
-
         {}
         <div className="navbar-logo">
           <span className="logo-text"><img src={logo} alt="Logo" width="50" /></span>
         </div>
-
         {}
         <nav className="navbar-links">
           <a href="#" className="nav-link">MEN</a>
@@ -24,7 +21,6 @@ function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
           <a href="#" className="nav-link">BEAUTY</a>
           <a href="#" className="nav-link nav-link--sale">STUDIO</a>
         </nav>
-
         {}
         <div className="navbar-search">
           <span className="search-icon">🔍</span>
@@ -36,14 +32,12 @@ function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-
         {}
         <div className="navbar-actions">
           <button className="action-btn">
             <span className="action-icon">👤</span>
             <span className="action-label">Profile</span>
           </button>
-
           <button className="action-btn">
             <span className="action-icon">❤️</span>
             <span className="action-label">Wishlist</span>
@@ -51,24 +45,14 @@ function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
               <span className="action-badge">{wishlistCount}</span>
             )}
           </button>
-
           <Link to="/bag" className="action-btn">
-
-  <span className="action-icon">🛍️</span>
-
-  <span className="action-label">
-    Bag
-  </span>
-
-  {cartCount > 0 && (
-    <span className="action-badge">
-      {cartCount}
-    </span>
-  )}
-
-</Link>
+       <span className="action-icon">🛍️</span>
+       <span className="action-label"> Bag</span>
+       {cartCount > 0 && (
+       <span className="action-badge">{cartCount}</span>
+      )}
+         </Link>
         </div>
-
         {}
         <button
           className="hamburger"
@@ -77,7 +61,6 @@ function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
           ☰
         </button>
       </div>
-
       {}
       {menuOpen && (
         <div className="mobile-menu">
