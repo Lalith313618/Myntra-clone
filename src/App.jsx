@@ -4,6 +4,10 @@ import Hero from "./components/Hero";
 import Categories from "./components/Categories";
 import ProductCard from "./components/ProductCard";
 import Footer from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Bag from "./pages/Bag";
+import { CartContext } from "./context/CartContext";
+import { useContext } from "react";
 import "./App.css";
 
 const products = [
@@ -107,12 +111,13 @@ const products = [
 
 const categories = ["All", "Men", "Women", "Footwear", "Accessories"];
 function App() {
-  const [cartCount, setCartCount] = useState(0);
+  const [wishlistItems, setWishlistItems] = useState([]);
   const [wishlistCount, setWishlistCount] = useState(0);
+
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState([]);
-  const [wishlistItems, setWishlistItems] = useState([]);
+  const { cart, addToCart } = useContext(CartContext);
 
   
   const filteredProducts = products.filter((p) => {
@@ -122,15 +127,11 @@ function App() {
       p.brand.toLowerCase().includes(searchQuery.toLowerCase());
     return matchCategory && matchSearch;
   });
+  const handleAddToCart = (product)=>{
 
-  const handleAddToCart = (product) => {
-    if (!cartItems.includes(product.id)) {
-      setCartItems([...cartItems, product.id]);
-      setCartCount((prev) => prev + 1);
-    }
-  };
+addToCart(product);
 
-
+};
   const handleWishlist = (product) => {
     if (wishlistItems.includes(product.id)) {
       setWishlistItems(wishlistItems.filter((id) => id !== product.id));
@@ -141,57 +142,127 @@ function App() {
     }
   };
 
-  return (
-    <div className="app">
-      {}
-      <Navbar
-        cartCount={cartCount}
-        wishlistCount={wishlistCount}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
+return (
 
-      {}
-      <Hero />
+<BrowserRouter>
 
-      {}
-      <Categories
-        categories={categories}
-        activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
-      />
+<Routes>
 
-      {}
-      <section className="products-section">
-        <h2 className="section-title">
-          {activeCategory === "All" ? "All Products" : activeCategory}
-          <span className="product-count"> ({filteredProducts.length} items)</span>
-        </h2>
 
-        {filteredProducts.length === 0 ? (
-          <div className="no-results">
-            <p>No products found for "<strong>{searchQuery}</strong>"</p>
-          </div>
-        ) : (
-          <div className="products-grid">
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                isInCart={cartItems.includes(product.id)}
-                isWishlisted={wishlistItems.includes(product.id)}
-                onAddToCart={handleAddToCart}
-                onWishlist={handleWishlist}
-              />
-            ))}
-          </div>
-        )}
-      </section>
+<Route 
+path="/bag"
+element={
+<Bag 
+cartItems={cartItems}
+/>
+}
+/>
 
-      {}
-      <Footer />
-    </div>
-  );
+
+<Route 
+path="/"
+element={
+
+<div className="app">
+
+
+<Navbar
+
+cartCount={cart.length}
+
+wishlistCount={wishlistCount}
+
+searchQuery={searchQuery}
+
+setSearchQuery={setSearchQuery}
+
+/>
+
+
+
+<Hero />
+
+
+
+<Categories
+
+categories={categories}
+
+activeCategory={activeCategory}
+
+setActiveCategory={setActiveCategory}
+
+/>
+
+
+
+<section className="products-section">
+
+
+<h2 className="section-title">
+
+{activeCategory === "All" 
+? "All Products" 
+: activeCategory}
+
+
+</h2>
+
+
+
+<div className="products-grid">
+
+
+{
+
+filteredProducts.map((product)=>(
+
+
+<ProductCard
+
+key={product.id}
+
+product={product}
+
+isInCart={cart.some(item => item.id === product.id)}
+isWishlisted={wishlistItems.includes(product.id)}
+
+onAddToCart={handleAddToCart}
+
+onWishlist={handleWishlist}
+
+/>
+
+
+))
+
+
+}
+
+
+</div>
+
+
+</section>
+
+
+
+<Footer />
+
+
+</div>
+
+
+}
+
+/>
+
+
+</Routes>
+
+</BrowserRouter>
+
+);
 }
 
 export default App;

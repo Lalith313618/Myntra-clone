@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../Styles/Navbar.css";
 import logo from "../Assets/Logo.jpg";
+import { Link } from "react-router-dom";
 
 function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -51,13 +52,21 @@ function Navbar({ cartCount, wishlistCount, searchQuery, setSearchQuery }) {
             )}
           </button>
 
-          <button className="action-btn">
-            <span className="action-icon">🛍️</span>
-            <span className="action-label">Bag</span>
-            {cartCount > 0 && (
-              <span className="action-badge">{cartCount}</span>
-            )}
-          </button>
+          <Link to="/bag" className="action-btn">
+
+  <span className="action-icon">🛍️</span>
+
+  <span className="action-label">
+    Bag
+  </span>
+
+  {cartCount > 0 && (
+    <span className="action-badge">
+      {cartCount}
+    </span>
+  )}
+
+</Link>
         </div>
 
         {}

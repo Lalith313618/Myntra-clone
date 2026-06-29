@@ -9,7 +9,6 @@ const categoryEmoji = {
   Accessories: "👜",
  
 };
-
 function Categories({ categories, activeCategory, setActiveCategory }) {
   return (
     <section className="categories">
